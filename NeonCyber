@@ -65,13 +65,11 @@ local function align(i,v)
 end
 
 function Load()
-	if Humanoid.RigType == Enum.RigType.R15 then
-		warn("No R15 Support rn")
-	else
 		Char["Left Arm"]:BreakJoints()
 		Attach()
 		Char["Cyberpunk Ninjatõ Green (Back)"].Handle.AccessoryWeld:Destroy()
 		Char["Cyberpunk Ninjatõ Green (Back)"].Handle.BodyBackAttachment:Destroy()
 		align(Char["Cyberpunk Ninjatõ Green (Back)"].Handle,Char["Left Arm"])
-	end
 end
+
+Load()
