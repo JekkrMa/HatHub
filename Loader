@@ -1,0 +1,57 @@
+--// Loader Version 1.1
+
+--// Devnote 
+--[[
+Added Color to the Scrolbar
+Made alt re-apear the gui after being pressed
+]]
+local Player = game.Players.LocalPlayer
+local Char = Player.Character
+local UserInputService = game:GetService("UserInputService")
+
+local Eligble = false
+
+function CreateUI()
+	if Eligble then
+		
+		local function CreateInstance(cls,props)
+			local inst = Instance.new(cls)
+			for i,v in pairs(props) do
+				inst[i] = v
+			end
+			return inst
+		end
+
+		local Main = CreateInstance('ScreenGui',{DisplayOrder=0,Enabled=true,ResetOnSpawn=true,Name='Main', Parent=game.CoreGui})
+		local Hub = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0.5, 0.5),BackgroundColor3=Color3.new(0.0784314, 0.0784314, 0.0784314),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=0,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.5, 0, 0.5, 0),Rotation=0,Selectable=false,Size=UDim2.new(0.200000003, 0, 0.25, 0),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Hub',Parent = Main})
+		local Title = CreateInstance('TextLabel',{Font=Enum.Font.SourceSansItalic,FontSize=Enum.FontSize.Size14,Text='Project Calamity',TextColor3=Color3.new(1, 1, 1),TextScaled=true,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Left,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=0,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.018229166, 0, 0, 0),Rotation=0,Selectable=false,Size=UDim2.new(0.600000024, 0, 0.100000001, 0),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Title',Parent = Hub})
+		local ScriptHolder = CreateInstance('ScrollingFrame',{BottomImage='rbxasset://textures/ui/Scroll/scroll-bottom.png',CanvasPosition=Vector2.new(0, 0),CanvasSize=UDim2.new(0, 0, 2, 0),MidImage='rbxasset://textures/ui/Scroll/scroll-middle.png',ScrollBarThickness=12,ScrollingEnabled=true,TopImage='rbxasset://textures/ui/Scroll/scroll-top.png',Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=0,ClipsDescendants=true,Draggable=false,Position=UDim2.new(0.018229166, 0, 0.144171774, 0),Rotation=0,Selectable=true,Size=UDim2.new(0.958333313, 0, 0.855828226, 0),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='ScriptHolder',ScrollBarImageColor3=Color3.fromRGB(35,35,45),Parent = Hub})
+		local UIGridLayout = CreateInstance('UIGridLayout', {CellPadding = UDim2.new(0, 5, 0, 5), CellSize = UDim2.new(0.300000012, 0, 0.0839999989, 0), FillDirectionMaxCells = 0, StartCorner=Enum.StartCorner.TopLeft, FillDirection=Enum.FillDirection.Horizontal, HorizontalAlignment = Enum.HorizontalAlignment.Left, SortOrder = Enum.SortOrder.LayoutOrder, VerticalAlignment = Enum.VerticalAlignment.Top, Name = 'UIGridLayout', Parent = ScriptHolder })
+		local NeonCyber = CreateInstance('TextButton',{Font=Enum.Font.SourceSansItalic,FontSize=Enum.FontSize.Size14,Text='Cyberpunk Ninjatõ',TextColor3=Color3.new(1, 1, 1),TextScaled=true,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0.137255, 0.137255, 0.176471),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=0,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0, 0, 0, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 200, 0, 50),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='NeonCyber',Parent = ScriptHolder})
+		
+		NeonCyber.MouseButton1Click:Connect(LoadNeon)
+		
+		UserInputService.InputBegan:connect(function(inputObject, gameProcessedEvent)
+			if inputObject.KeyCode == Enum.KeyCode.LeftAlt then
+				if Hub.Visible == true then
+					Hub.Visible = false		
+				else
+					Hub.Visible = true
+					end	
+				end 
+		end)	
+	end
+end
+
+function CheckEligiblity()
+	if Player.Name == "SofPNG" then
+		Eligble = true
+		CreateUI()
+	end
+end
+
+function LoadNeon()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/JekkrMa/HatHub/main/NeonCyber"))()
+end
+
+CheckEligiblity()
