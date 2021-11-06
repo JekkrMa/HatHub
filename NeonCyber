@@ -1,1 +1,77 @@
+local Player = game.Players.LocalPlayer
+local Char = Player.Character
+local Humanoid = Char.Humanoid
 
+local Attachment1
+local Attachment2
+local AlignPos
+local AlignOri
+
+function Attach()
+	Attachment1 = Instance.new("Attachment",Char["Left Arm"])
+	Attachment1.Name = "Att1"
+	Attachment1.Position = Vector3.new(0,0,0)
+
+	Attachment2 = Instance.new("Attachment",Char["Torso"])
+	Attachment2.Name = "Att2"
+	Attachment2.Position = Vector3.new(-1.5,0.5,-0.5)
+	Attachment2.Rotation = Vector3.new(90,0,5)
+
+	AlignPos = Instance.new("AlignPosition",Char["Left Arm"])
+	AlignPos.Name = "AP"
+	AlignPos.Attachment0 = Attachment1
+	AlignPos.Attachment1 = Attachment2
+	AlignPos.RigidityEnabled = false
+	AlignPos.ReactionForceEnabled = false
+	AlignPos.ApplyAtCenterOfMass = true
+	AlignPos.MaxForce = 9999999
+	AlignPos.MaxVelocity = math.huge
+	AlignPos.Responsiveness = 10000000000000
+
+	AlignOri = Instance.new("AlignOrientation",Char["Left Arm"])
+	AlignOri.Name = "AO"
+	AlignOri.Attachment0 = Attachment1
+	AlignOri.Attachment1 = Attachment2
+	AlignOri.ReactionTorqueEnabled = true
+	AlignOri.PrimaryAxisOnly = false
+	AlignOri.MaxTorque = 9999999
+	AlignOri.MaxAngularVelocity = math.huge
+	AlignOri.Responsiveness = 10000000000000
+end
+
+local function align(i,v)
+	Attachment1 = Instance.new("Attachment", i)
+	Attachment1.Position = Vector3.new(0,0,0) 
+	Attachment2 = Instance.new("Attachment", v)
+	Attachment2.Position = Vector3.new(0,-2.5,-1.5)
+	Attachment2.Rotation = Vector3.new(-90, 90, 0)
+	local AP = Instance.new("AlignPosition", i)
+	AP.Attachment0 = Attachment1
+	AP.Attachment1 = Attachment2
+	AP.RigidityEnabled = false
+	AP.ReactionForceEnabled = false
+	AP.ApplyAtCenterOfMass = true
+	AP.MaxForce = 9999999
+	AP.MaxVelocity = math.huge
+	AP.Responsiveness = 1000000000000
+	local AO = Instance.new("AlignOrientation", i)
+	AO.Attachment0 = Attachment1
+	AO.Attachment1 = Attachment2
+	AO.ReactionTorqueEnabled = true
+	AO.PrimaryAxisOnly = false
+	AO.MaxTorque = 9999999
+	AO.MaxAngularVelocity = math.huge
+	AO.Responsiveness = 10000000000000
+end
+
+function Load()
+	if Humanoid.RigType == Enum.RigType.R15 then
+		warn("No R15 Support rn")
+	else
+		Char["Left Arm"]:BreakJoints()
+		Attach()
+		Char["Cyberpunk Ninjatõ Green (Back)"].Handle.AccessoryWeld:Destroy()
+		Char["Cyberpunk Ninjatõ Green (Back)"].Handle.BodyBackAttachment:Destroy()
+		align(Char["Cyberpunk Ninjatõ Green (Back)"].Handle,Char["Left Arm"])
+	end
+end
